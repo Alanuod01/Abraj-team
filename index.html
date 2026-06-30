@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Team Training</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#f7f7f7,#ececec);
+  color:#111;
+}
+
+header{
+  background:linear-gradient(135deg,#000,#222);
+  color:white;
+  padding:45px 25px;
+  text-align:center;
+  border-bottom:4px solid #c31c1c;
+}
+
+header h1{
+  font-size:42px;
+  margin:0 0 10px;
+  letter-spacing:.5px;
+}
+
+header p{
+  margin:0;
+  color:#d97070;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1050px;
+  margin:auto;
+  padding:25px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  margin-bottom:18px;
+  border-radius:22px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  border:1px solid #eee;
+  transition:.25s ease;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+button{
+  background:#000;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  margin-top:10px;
+  font-weight:bold;
+  transition:.25s ease;
+}
+
+button:hover{
+  background:#d43737;
+  color:#111;
+  transform:scale(1.03);
+}
+
+.section{display:none}
+.active{display:block}
+
+.language-switch{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:999;
+  background:rgba(255,255,255,.08);
+  padding:8px;
+  border-radius:16px;
+  backdrop-filter:blur(8px);
+}
+
+.language-switch button{
+  padding:10px 14px;
+  margin-left:6px;
+  border-radius:12px;
+}
+
+.tier-card{
+  padding:28px;
+  margin:22px 0;
+  border-radius:22px;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+  transition:.25s ease;
+}
+
+.tier-card:hover{
+  transform:translateY(-4px) scale(1.01);
+}
+
+.bronze{
+  background:linear-gradient(135deg,#8c4b22,#c98245);
+}
+
+.silver{
+  background:linear-gradient(135deg,#606c76,#aeb6bf);
+}
+
+.gold{
+  background:linear-gradient(135deg,#d4af37,#fff1a8);
+  color:#111;
+}
+
+.gift-card{
+  background:linear-gradient(135deg,#fff,#F7F4EC)!important;
+  color:#222!important;
+  border:2px solid #c61b1b;
+}
+
+ul{
+  line-height:1.9;
+  padding-inline-start:25px;
+}
+
+#quizQuestion{
+  font-size:22px;
+  font-weight:bold;
+  line-height:1.6;
+}
+
+#quizOptions button{
+  width:100%;
+  text-align:left;
+  background:#f3f3f3;
+  color:#111;
+  border:1px solid #ddd;
+}
+
+#quizOptions button:hover{
+  background:#000;
+  color:white;
+}
+
+#quizFeedback{
+  font-size:20px;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+@media(max-width:700px){
+  header h1{font-size:30px}
+  .language-switch{
+    position:static;
+    text-align:center;
+    background:#000;
+    border-radius:0;
+  }
+  .container{padding:15px}
+}
+#splash{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#000,#222);
+  color:white;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  transition:opacity .5s ease;
+  opacity:1;
+}
+
+.splash-box{
+  animation:fadeUp .9s ease;
+}
+
+.splash-icon{
+  font-size:60px;
+  margin-bottom:15px;
+}
+
+.splash-box h1{
+  margin:0;
+  font-size:36px;
+}
+
+.splash-box p{
+  color:#af1e1e;
+  font-weight:bold;
+}
+
+.loader{
+  width:55px;
+  height:4px;
+  background:#c12323;
+  margin:25px auto 0;
+  border-radius:10px;
+  animation:loading 1.2s infinite alternate;
+}
+
+@keyframes loading{
+  from{width:25px;opacity:.4}
+  to{width:90px;opacity:1}
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.footer{
+    margin-top:40px;
+    padding:25px;
+    text-align:center;
+    background:#111;
+    color:#bfbfbf;
+    font-size:14px;
+    border-top:1px solid #E31C25;
+}
+
+.footer p{
+    margin:0;
+    color:#fff;
+    font-weight:600;
+}
+
+.footer small{
+    display:block;
+    margin-top:6px;
+    color:#9e9e9e;
+}
+</style>
+</head>
+
+<body>
+<div id="splash">
+  <div class="splash-box">
+    <div class="splash-icon">💎</div>
+    <h1>Abraj Al Bait Training</h1>
+    <div class="loader"></div>
+  </div>
+</div>
+
+<div class="language-switch">
+<button onclick="setLanguage('en')">🇺🇸 English</button>
+<button onclick="setLanguage('ar')">🇸🇦 العربية</button>
+</div>
+
+<header>
+
+<div class="header-overlay">
+
+<div class="logo">
+SEPHORA
+</div>
+
+<h1>Team Training</h1>
+
+<p>Learn • Practice • Grow</p>
+
+<div class="gold-line"></div>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div id="home" class="section active">
+<div class="card">
+<h2 id="homeTitle">Welcome Team ✨</h2>
+<p id="homeText">This website is created to help the team review important training topics anytime.</p>
+</div>
+
+<div class="card">
+<h3 id="mySephoraTitle">MySephora</h3>
+<p id="mySephoraText">Review Bronze, Silver, Gold tiers and points system.</p>
+<button id="mySephoraButton" onclick="showSection('mysephora')">Open MySephora</button>
+</div>
+<div class="card">
+<h3 id="quizTitle">📝 Quiz</h3>
+<p id="quizText">
+Test your MySephora knowledge.
+</p>
+
+<button id="quizButton" onclick="showSection('quiz')">
+Open
+</button>
+
+</div>
+</div>
+
+<div id="mysephora" class="section">
+<div class="card">
+<h2>MySephora 💎</h2>
+<p>اختاري القسم لمعرفة التفاصيل | Choose a section to explore</p>
+
+<div class="tier-card gift-card" onclick="showSection('earnPoints')">
+<h3>⭐ Earn Points | كسب النقاط</h3>
+<p>Learn how customers earn points.<br>تعرّفي على كيفية كسب العملاء للنقاط.</p>
+<button>Open | فتح</button>
+</div>
+
+<div class="tier-card gift-card" onclick="showSection('enjoyRewards')">
+<h3>🎁 Enjoy Rewards | الاستمتاع بالمكافآت</h3>
+<p>Discover rewards and redemption rules.<br>تعرّفي على المكافآت وآلية الاستبدال.</p>
+<button>Open | فتح</button>
+</div>
+
+<div class="tier-card gift-card" onclick="showSection('membershipTiers')">
+<h3>👑 Membership Tiers | فئات العضوية</h3>
+<p>Bronze • Silver • Gold<br>البرونزية • الفضية • الذهبية</p>
+<button>Open | فتح</button>
+</div>
+<div class="tier-card gift-card" onclick="showSection('giftValidity')">
+<h3>⏳ Gift Validity | مدة صلاحية الهدايا</h3>
+<p>Review the validity period for all gifts and rewards.<br>
+راجعي مدة صلاحية جميع الهدايا والمكافآت.</p>
+<button>Open | فتح</button>
+</div>
+
+<button onclick="showSection('home')">⬅ Back Home</button>
+</div>
+</div>
+
+<div id="earnPoints" class="section">
+<div class="card">
+<h2>⭐ Earn Points | كسب النقاط</h2>
+
+<div class="card">
+<h3>🛍️ Real-Time Points</h3>
+<p>Points are earned in real time with every purchase.<br>يتم احتساب النقاط في الوقت الفعلي مع كل عملية شراء.</p>
+</div>
+
+<div class="card">
+<h3>🏪 Where to Earn</h3>
+<p>In-store, online, products and services.<br>داخل المتجر، عبر الإنترنت، المنتجات والخدمات.</p>
+</div>
+
+<div class="card">
+<h3>🧾 Receipt Update</h3>
+<p>Points are updated immediately on the receipt.<br>يتم تحديث النقاط فورًا على الإيصال.</p>
+</div>
+
+<div class="card">
+<h3>📱 Sephora App</h3>
+<p>The app shows points clearly.<br>يعرض تطبيق Sephora النقاط بشكل واضح.</p>
+</div>
+
+<div class="card">
+<h3>🇸🇦 Saudi Arabia</h3>
+<p>Every 10 SAR = 1 point.<br>في السعودية: كل 10 ريال = نقطة واحدة.</p>
+</div>
+
+<button onclick="showSection('mysephora')">⬅ Back to MySephora</button>
+</div>
+</div>
+
+<div id="enjoyRewards" class="section">
+<div class="card">
+<h2>🎁 Enjoy Rewards | الاستمتاع بالمكافآت</h2>
+
+<div class="card">
+<h3>🎁 Rewards for All Tiers</h3>
+<p>A wide range of rewards is available across all tiers.<br>مجموعة واسعة من المكافآت متاحة عبر جميع الفئات.</p>
+</div>
+
+<div class="card">
+<h3>🛒 Reward Redemption</h3>
+<p>Customers can redeem up to 3 rewards per purchase.<br>يمكن استبدال حتى 3 مكافآت لكل عملية شراء.</p>
+</div>
+
+<div class="card">
+<h3>⏳ Reward Availability</h3>
+<p>The reward becomes ready within one day after reaching the required points.<br>تصبح المكافأة جاهزة خلال يوم واحد من الوصول إلى النقاط المطلوبة.</p>
+</div>
+
+<div class="card">
+<h3>📱 Sephora App</h3>
+<p>The app shows available and upcoming rewards clearly.<br>يوفر التطبيق رؤية أوضح للمكافآت المتاحة والقادمة.</p>
+</div>
+
+<button onclick="showSection('mysephora')">⬅ Back to MySephora</button>
+</div>
+</div>
+<div id="membershipTiers" class="section">
+<div class="card">
+
+<h2>👑 Membership Tiers | فئات العضوية</h2>
+
+<p>Select a tier to explore its benefits.<br>
+اختر الفئة لمعرفة مزاياها.</p>
+
+<div class="tier-card bronze" onclick="showSection('bronze')">
+<h3>🥉 Bronze | البرونزية</h3>
+<p>0 - 199 pts</p>
+<button>Explore →</button>
+</div>
+
+<div class="tier-card silver" onclick="showSection('silver')">
+<h3>🥈 Silver | الفضية</h3>
+<p>200 - 999 pts</p>
+<button>Explore →</button>
+</div>
+
+<div class="tier-card gold" onclick="showSection('gold')">
+<h3>🥇 Gold | الذهبية</h3>
+<p>1000+ pts</p>
+<button>Explore →</button>
+</div>
+
+<button onclick="showSection('mysephora')">⬅ Back to MySephora</button>
+</div>
+</div>
+
+<div id="bronze" class="section">
+<div class="card">
+<h2>🥉 Bronze | البرونزية</h2>
+<p><b>0 - 199 pts</b></p>
+<h3>🎁 Gift Validity | مدة صلاحية الهدايا</h3>
+<ul>
+<li>Welcome Gift: Valid for 3 months.</li>
+<li>هدية الترحيب: صالحة لمدة 3 أشهر.</li>
+</ul>
+<h3>🎮 NEW | المهام المستمرة</h3>
+<ul>
+<li>Available for all tiers.</li>
+<li>Game-style missions to earn more rewards.</li>
+<li>متاحة لجميع الفئات.</li>
+<li>تعتمد على أسلوب الألعاب والتحديات التفاعلية.</li>
+</ul>
+<ul>
+<li>Easy enrollment with any purchase or service.</li>
+<li>Customer must be 18+ years old.</li>
+<li>Saudi Arabia: every 10 SAR = 1 point.</li>
+<li>الانضمام سهل مع أي عملية شراء أو خدمة.</li>
+<li>في السعودية: كل 10 ريال = نقطة واحدة.</li>
+</ul>
+<div class="card">
+<h3>👑 Navigate Between Tiers | التنقل بين العضويات</h3>
+
+<button onclick="showSection('bronze')">🥉 Bronze</button>
+<button onclick="showSection('silver')">🥈 Silver</button>
+<button onclick="showSection('gold')">🥇 Gold</button>
+</div>
+<button onclick="showSection('mysephora')">⬅ Back to MySephora</button>
+</div>
+</div>
+
+<div id="silver" class="section">
+<div class="card">
+<h2>🥈 Silver | الفضية</h2>
+<p><b>200 - 999 pts</b></p>
+<h3>🎁 Gift Validity | مدة صلاحية الهدايا</h3>
+<ul>
+<li>Birthday Gift: Valid for 1 month.</li>
+<li>هدية الميلاد: صالحة لمدة شهر واحد.</li>
+<li>200 Points Reward: Valid for 3 months.</li>
+<li>مكافأة 200 نقطة: صالحة لمدة 3 أشهر.</li>
+</ul>
+<h3>🎮 NEW Feature | الميزة الجديدة</h3>
+<ul>
+<li>Continuous Missions available for all tiers.</li>
+<li>Earn more rewards through game-style challenges.</li>
+<li>المهام المستمرة متوفرة لجميع الفئات.</li>
+<li>تعتمد على أسلوب الألعاب والتحديات التفاعلية.</li>
+</ul>
+<ul>
+<li>Upgrade after reaching 200 points.</li>
+<li>Tier valid for 12 months.</li>
+<li>تتم الترقية عند الوصول إلى 200 نقطة.</li>
+<li>صلاحية الفئة 12 شهرًا.</li>
+</ul>
+<div class="card">
+<h3>👑 Navigate Between Tiers | التنقل بين العضويات</h3>
+
+<button onclick="showSection('bronze')">🥉 Bronze</button>
+<button onclick="showSection('silver')">🥈 Silver</button>
+<button onclick="showSection('gold')">🥇 Gold</button>
+</div>
+<button onclick="showSection('mysephora')">⬅ Back to MySephora</button>
+</div>
+</div>
+
+<div id="gold" class="section">
+<div class="card">
+<h2>🥇 Gold | الذهبية</h2>
+<p><b>1000+ pts</b></p>
+
+<h3>🎁 Gift Validity | مدة صلاحية الهدايا</h3>
+<ul>
+<li>200 Points Reward: Valid for 3 months.</li>
+<li>مكافأة 200 نقطة: صالحة لمدة 3 أشهر.</li>
+<li>1000 Points Reward: Valid for 3 months.</li>
+<li>مكافأة 1000 نقطة: صالحة لمدة 3 أشهر.</li>
+<li>Birthday Gift: Valid for 1 month.</li>
+<li>هدية الميلاد: صالحة لمدة شهر واحد.</li>
+<li>Tier Renewal Gift: Every 12 months if the member remains Gold.</li>
+<li>هدية تجديد الفئة: كل 12 شهر في حال المحافظة على الفئة الذهبية.</li>
+</ul>
+
+<h3>🌟 Premium Benefits | المزايا الحصرية</h3>
+<ul>
+<li>Premium Customer Service.</li>
+<li>Private Sale access.</li>
+<li>Exclusive Events.</li>
+<li>Masterclass Invitations.</li>
+<li>خدمة عملاء مميزة.</li>
+<li>الوصول إلى البيع الخاص.</li>
+<li>فعاليات حصرية.</li>
+<li>دعوات إلى Masterclass.</li>
+</ul>
+
+<h3>🎮 NEW Feature | الميزة الجديدة</h3>
+<ul>
+<li>Continuous Missions available for all tiers.</li>
+<li>Earn rewards through interactive game-style challenges.</li>
+<li>المهام المستمرة متوفرة لجميع الفئات.</li>
+<li>تعتمد على أسلوب الألعاب والتحديات التفاعلية.</li>
+</ul>
+<div class="card">
+<h3>👑 Navigate Between Tiers | التنقل بين العضويات</h3>
+
+<button onclick="showSection('bronze')">🥉 Bronze</button>
+<button onclick="showSection('silver')">🥈 Silver</button>
+<button onclick="showSection('gold')">🥇 Gold</button>
+</div>
+<button onclick="showSection('mysephora')">⬅ Back to MySephora</button>
+</div>
+</div>
+
+<div id="giftValidity" class="section">
+<div class="card">
+<h2>🎁 Gift Validity | مدة صلاحية الهدايا</h2>
+<p>Know exactly how long every reward remains valid.<br>تعرّف على مدة صلاحية جميع الهدايا لكل فئة.</p>
+
+<hr>
+<h3>🥉 Bronze | البرونزية</h3>
+<ul>
+<li>Welcome Gift — Valid for 3 months after joining and redeemable with the first purchase.</li>
+<li>الهدية الترحيبية صالحة لمدة 3 أشهر ويتم استبدالها مع أول عملية شراء.</li>
+</ul>
+
+<hr>
+<h3>🥈 Silver | الفضية</h3>
+<ul>
+<li>Birthday Gift — Valid for 1 month.</li>
+<li>هدية الميلاد صالحة لمدة شهر.</li>
+<li>200 Points Reward — Valid for 3 months.</li>
+<li>مكافأة 200 نقطة صالحة لمدة 3 أشهر.</li>
+</ul>
+
+<hr>
+<h3>🥇 Gold | الذهبية</h3>
+<ul>
+<li>200 Points Reward — Valid for 3 months.</li>
+<li>مكافأة 200 نقطة صالحة لمدة 3 أشهر.</li>
+<li>1000 Points Reward — Valid for 3 months.</li>
+<li>مكافأة 1000 نقطة صالحة لمدة 3 أشهر.</li>
+<li>Birthday Gift — Valid for 1 month.</li>
+<li>هدية الميلاد صالحة لمدة شهر.</li>
+<li>Tier Renewal Gift — Available every 12 months if the member remains in Gold.</li>
+<li>هدية تجديد الفئة تمنح كل 12 شهر في حال المحافظة على الفئة الذهبية.</li>
+</ul>
+
+<button onclick="showSection('mysephora')">⬅ Back to MySephora</button>
+</div>
+</div>
+
+<div id="quiz" class="section">
+  <div class="card">
+    <h2>📝 Quiz | الاختبار</h2>
+
+    <p id="quizQuestion"></p>
+
+    <div id="quizOptions"></div>
+
+    <p id="quizFeedback"></p>
+
+    <button id="nextBtn" onclick="nextQuestion()" style="display:none;">
+      Next | التالي
+    </button>
+
+    <button onclick="showSection('home')">
+      ⬅ Back | رجوع
+    </button>
+  </div>
+</div>
+
+<script>
+let currentLanguage = "en";
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+const quizQuestions = [
+
+{
+arQuestion:"كم نقطة يحصل عليها العميل مقابل كل 10 ريال؟",
+enQuestion:"How many points does the customer earn for every 10 SAR?",
+arOptions:["نقطة واحدة","نقطتان","5 نقاط"],
+enOptions:["1 Point","2 Points","5 Points"],
+correct:0
+},
+
+{
+arQuestion:"متى يصبح العميل عضوية فضية؟",
+enQuestion:"When does the customer become Silver?",
+arOptions:["100 نقطة","200 نقطة","500 نقطة"],
+enOptions:["100 Points","200 Points","500 Points"],
+correct:1
+},
+
+{
+arQuestion:"كم مدة صلاحية هدية الترحيب؟",
+enQuestion:"How long is the Welcome Gift valid?",
+arOptions:["شهر","3 أشهر","6 أشهر"],
+enOptions:["1 Month","3 Months","6 Months"],
+correct:1
+},
+
+{
+arQuestion:"هل يمكن استبدال الهدية الترحيبية بدون عملية شراء؟",
+enQuestion:"Can the Welcome Gift be redeemed without a purchase?",
+arOptions:["نعم","لا"],
+enOptions:["Yes","No"],
+correct:1
+},
+
+{
+arQuestion:"كم عدد الهدايا التي يمكن استبدالها مع عملية شراء واحدة؟",
+enQuestion:"How many rewards can be redeemed in one purchase?",
+arOptions:["هدية واحدة","هديتان","3 هدايا","5 هدايا"],
+enOptions:["1 Reward","2 Rewards","3 Rewards","5 Rewards"],
+correct:2
+},
+
+{
+arQuestion:"متى يتم إضافة النقاط إلى حساب العميل؟",
+enQuestion:"When are points added to the customer's account?",
+arOptions:["خلال 24 ساعة","خلال 48 ساعة","نهاية الشهر","في الوقت الفعلي"],
+enOptions:["Within 24 hours","Within 48 hours","End of the month","In real time"],
+correct:3
+},
+
+{
+arQuestion:"عميل لديه 850 نقطة، ما هي فئته؟",
+enQuestion:"A customer has 850 points. What is their tier?",
+arOptions:["البرونزية","الفضية","الذهبية","غير مؤهل"],
+enOptions:["Bronze","Silver","Gold","Not Eligible"],
+correct:1
+},
+
+{
+arQuestion:"عميل جديد انضم اليوم، متى يمكنه استخدام هديته الترحيبية؟",
+enQuestion:"A new customer joined today. When can they use the Welcome Gift?",
+arOptions:["بعد 24 ساعة","مع أول عملية شراء","بعد الوصول إلى 200 نقطة","بعد شهر"],
+enOptions:["After 24 hours","With the first purchase","After reaching 200 points","After one month"],
+correct:1
+},
+
+{
+arQuestion:"كم مدة صلاحية مكافأة 200 نقطة؟",
+enQuestion:"How long is the 200 Points Reward valid?",
+arOptions:["شهر","3 أشهر","12 شهر"],
+enOptions:["1 Month","3 Months","12 Months"],
+correct:1
+},
+
+{
+arQuestion:"كم مدة صلاحية هدية الميلاد؟",
+enQuestion:"How long is the Birthday Gift valid?",
+arOptions:["شهر","3 أشهر","6 أشهر"],
+enOptions:["1 Month","3 Months","6 Months"],
+correct:0
+},
+
+{
+arQuestion:"متى يحصل العميل على عضوية Gold؟",
+enQuestion:"When does the customer become Gold?",
+arOptions:["500 نقطة","1000 نقطة","1500 نقطة"],
+enOptions:["500 Points","1000 Points","1500 Points"],
+correct:1
+},
+
+{
+arQuestion:"كل كم شهر يحصل عضو Gold على هدية تجديد الفئة إذا حافظ على العضوية؟",
+enQuestion:"How often does a Gold member receive the Tier Renewal Gift if they remain Gold?",
+arOptions:["6 أشهر","12 شهر","24 شهر"],
+enOptions:["Every 6 months","Every 12 months","Every 24 months"],
+correct:1
+}
+
+];
+
+function showSection(sectionId){
+  let sections=document.querySelectorAll('.section');
+  sections.forEach(section=>section.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+
+  if(sectionId === "quiz"){
+    currentQuestion = 0;
+    score = 0;
+    loadQuiz();
+  }
+}
+
+function loadQuiz(){
+  answered = false;
+  document.getElementById("quizFeedback").innerHTML = "";
+  document.getElementById("nextBtn").style.display = "none";
+
+  let q = quizQuestions[currentQuestion];
+
+  document.getElementById("quizQuestion").innerHTML =
+    (currentQuestion + 1) + " / " + quizQuestions.length + "<br><br>" +
+    (currentLanguage === "ar" ? q.arQuestion : q.enQuestion);
+
+  let options = currentLanguage === "ar" ? q.arOptions : q.enOptions;
+  let optionsHTML = "";
+
+  options.forEach((option, index) => {
+    optionsHTML += `<button onclick="checkAnswer(${index})">${option}</button><br><br>`;
+  });
+
+  document.getElementById("quizOptions").innerHTML = optionsHTML;
+}
+
+function checkAnswer(selected){
+  if(answered) return;
+
+  answered = true;
+  let q = quizQuestions[currentQuestion];
+
+  if(selected === q.correct){
+    score++;
+    document.getElementById("quizFeedback").innerHTML =
+      currentLanguage === "ar" ? "✅ إجابة صحيحة" : "✅ Correct!";
+  }else{
+    document.getElementById("quizFeedback").innerHTML =
+      currentLanguage === "ar" ? "❌ إجابة خاطئة" : "❌ Incorrect";
+  }
+
+  document.getElementById("nextBtn").style.display = "inline-block";
+}
+
+function nextQuestion(){
+  currentQuestion++;
+
+  if(currentQuestion < quizQuestions.length){
+    loadQuiz();
+  }else{
+    showResult();
+  }
+}
+
+function showResult(){
+  document.getElementById("quizQuestion").innerHTML =
+    currentLanguage === "ar" ? "🎉 انتهى الاختبار" : "🎉 Quiz Completed";
+
+  document.getElementById("quizOptions").innerHTML =
+    "<h3>" +
+    (currentLanguage === "ar" ? "النتيجة" : "Score") +
+    ": " +
+    score +
+    " / " +
+    quizQuestions.length +
+    "</h3>";
+
+  document.getElementById("quizFeedback").innerHTML =
+    score >= Math.ceil(quizQuestions.length * 0.8)
+      ? (currentLanguage === "ar" ? "🌟 ممتاز!" : "🌟 Excellent!")
+      : (currentLanguage === "ar" ? "📚 يحتاج مراجعة." : "📚 Needs Review.");
+
+  document.getElementById("nextBtn").style.display = "none";
+}
+
+function setLanguage(lang){
+  currentLanguage = lang;
+
+  if(lang==="ar"){
+    document.documentElement.lang="ar";
+    document.documentElement.dir="rtl";
+    document.querySelector("header h1").innerHTML="تدريب الفريق"
+    document.querySelector("header p").innerHTML="تعلّم • تدرّب • تطوّر";
+    document.getElementById("homeTitle").innerHTML="✨ أهلاً بالفريق";
+    document.getElementById("homeText").innerHTML="هذا الموقع يساعد الفريق على مراجعة مواضيع التدريب المهمة في أي وقت.";
+    document.getElementById("mySephoraTitle").innerHTML="ماي سيفورا";
+    document.getElementById("mySephoraText").innerHTML="راجعي فئات Bronze وSilver وGold ونظام النقاط.";
+    document.getElementById("mySephoraButton").innerHTML="افتحي MySephora";
+    document.getElementById("quizTitle").innerHTML="📝 الاختبارات";
+    document.getElementById("quizText").innerHTML="اختبر معلوماتك عن MySephora.";
+    document.getElementById("quizButton").innerHTML="فتح";
+  }else{
+    document.documentElement.lang="en";
+    document.documentElement.dir="ltr";
+    document.querySelector("header h1").innerHTML="Team Training";
+    document.querySelector("header p").innerHTML="Learn • Practice • Grow";
+    document.getElementById("homeTitle").innerHTML="Welcome Team ✨";
+    document.getElementById("homeText").innerHTML="This website is created to help the team review important training topics anytime.";
+    document.getElementById("mySephoraTitle").innerHTML="MySephora";
+    document.getElementById("mySephoraText").innerHTML="Review Bronze, Silver, Gold tiers and points system.";
+    document.getElementById("mySephoraButton").innerHTML="Open MySephora";
+    document.getElementById("quizTitle").innerHTML="📝 Quiz";
+    document.getElementById("quizText").innerHTML="Test your MySephora knowledge.";
+    document.getElementById("quizButton").innerHTML="Open";
+  }
+
+  if(document.getElementById("quiz").classList.contains("active")){
+    loadQuiz();
+  }
+}
+setTimeout(function () {
+    const splash = document.getElementById("splash");
+    if (splash) {
+        splash.style.opacity = "0";
+
+        setTimeout(function () {
+            splash.style.display = "none";
+        }, 500);
+    }
+}, 1500);
+</script>
+<footer>
+    <p>Website Design & Development by Alanoud Alharbi</p>
+    <small>Training content © Sephora</small>
+</footer>
+</body>
+</html>
+
+
