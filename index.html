@@ -238,6 +238,37 @@ ul{
     margin-top:6px;
     color:#9e9e9e;
 }
+.faq-card {
+  cursor: pointer;
+}
+
+.faq-card summary {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  list-style: none;
+  outline: none;
+}
+
+.faq-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-card summary::after {
+  content: "＋";
+  float: right;
+  color: #E31C25;
+  font-size: 22px;
+}
+
+.faq-card[open] summary::after {
+  content: "−";
+}
+
+.faq-card p {
+  line-height: 1.8;
+  margin-top: 15px;
+}
 </style>
 </head>
 
@@ -327,9 +358,94 @@ Open
 راجعي مدة صلاحية جميع الهدايا والمكافآت.</p>
 <button>Open | فتح</button>
 </div>
-
-<button onclick="showSection('home')">⬅ Back Home</button>
+<div class="tier-card gift-card" onclick="showSection('faq')">
+    <h3>❓ Frequently Asked Questions | الأسئلة الشائعة</h3>
+    <p>
+        Find answers to the most common questions.<br>
+        اعثر على إجابات لأكثر الأسئلة شيوعًا.
+    </p>
+    <button>Open | افتح</button>
 </div>
+  <button onclick="showSection('home')">⬅ Back | رجوع</button>
+
+</div>
+</div>
+
+<div id="faq" class="section">
+
+<div class="card">
+<h2>
+<span class="en">❓ Frequently Asked Questions</span>
+<span class="ar">❓ الأسئلة الشائعة</span>
+</h2>
+
+<p>
+<span class="en">Click any question to view the answer.</span>
+<span class="ar">اضغط على أي سؤال لعرض الإجابة.</span>
+</p>
+</div>
+
+<details class="card faq-card">
+
+<summary>
+<span class="en">Can we still use Sephora Beauty Pass gifts under MySephora?</span>
+<span class="ar">هل لا يزال بإمكاننا استخدام هدايا Sephora Beauty Pass بعد إطلاق MySephora؟</span>
+</summary>
+
+<p class="en">
+Yes. During the transition phase, both Sephora Beauty Pass and MySephora gift sleeves can be used until stock is depleted.
+Always click on the offer first, then scan the Gift SKU to complete redemption.
+</p>
+
+<p class="ar">
+نعم، خلال المرحلة الانتقالية يمكن استخدام هدايا Sephora Beauty Pass وهدايا MySephora حتى نفاد الكمية.
+يجب الضغط أولًا على العرض ثم مسح باركود الهدية لإتمام الاستبدال.
+</p>
+
+</details>
+
+<details class="card faq-card">
+
+<summary>
+<span class="en">Can I provide a gift if it is not visible in POS or MyClient?</span>
+<span class="ar">هل يمكن تسليم الهدية إذا لم تكن ظاهرة في POS أو MyClient؟</span>
+</summary>
+
+<p class="en">
+No. Gifts must not be handed over unless they are visible in POS or MyClient.
+Customer migration is still in progress.
+</p>
+
+<p class="ar">
+لا، لا يتم تسليم أي هدية إذا لم تكن ظاهرة في POS أو MyClient.
+يجب دائمًا استبدال الهدية من خلال النظام.
+</p>
+
+</details>
+
+<details class="card faq-card">
+
+<summary>
+<span class="en">Why does the customer have two different point balances?</span>
+<span class="ar">لماذا يظهر للعميل رصيدان مختلفان من النقاط؟</span>
+</summary>
+
+<p class="en">
+Tier Points determine Bronze, Silver and Gold status.
+Reward Points are used to unlock rewards.
+</p>
+
+<p class="ar">
+نقاط المستوى تحدد مستوى العضوية.
+أما نقاط المكافآت فتستخدم لاستحقاق المكافآت.
+</p>
+
+</details>
+
+<button onclick="showSection('mysephora')">
+⬅ Back | رجوع
+</button>
+
 </div>
 
 <div id="earnPoints" class="section">
